@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MvcCoreGiris.Models;
+using MvcCoreGiris.Services;
 
 namespace MvcCoreGiris
 {
@@ -26,8 +27,13 @@ namespace MvcCoreGiris
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            //https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&tabs=visual-studio
+
+            // https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&tabs=visual-studio
             services.AddDbContext<OkulContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OkulContext")));
+
+            services.AddSingleton<LuckyNumberService>();
+            // services.AddScoped<LuckyNumberService>();
+            // services.AddTransient<LuckyNumberService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
